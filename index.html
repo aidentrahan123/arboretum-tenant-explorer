@@ -798,7 +798,7 @@ $('askState').textContent = 'Connecting…';
 (window.claude?.use ? window.claude.use('sample') : Promise.resolve(null)).then((s) => {
   sample = s;
   $('askState').textContent = s ? 'AI · Claude' : '';
-  if (!s) { $('askForm').style.display = 'none'; $('chips').style.display = 'none'; $('answer').innerHTML = '<div class="note">AI Q&amp;A runs when this page is opened on claude.ai.</div>'; }
+  if (!s) document.querySelector('.ask').style.display = 'none';  // no AI runtime (e.g. public mirror): drop the Ask panel
 });
 
 // open on the hash, or Equinox as the worked example
