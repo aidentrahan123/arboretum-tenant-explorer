@@ -789,7 +789,7 @@ async function ask() {
     $('atext').textContent = e?.text || '';
     const msg = { not_granted: 'AI answers are turned off for this page. Allow Claude for this artifact to use them.', sampling_disabled: 'AI answers are not available on this account.', rate_limited: 'Too many questions at once. Wait a moment and ask again.', session_expired: 'Sign in to claude.ai again to ask questions.' }[e?.code] || 'The answer did not come through. Ask again.';
     out.insertAdjacentHTML('beforeend', `<div class="note">${esc(msg)}</div>`);
-    if (e?.code === 'not_granted' || e?.code === 'sampling_disabled') $('askForm').hidden = true;
+    if (e?.code === 'not_granted' || e?.code === 'sampling_disabled') $('askForm').style.display = 'none';
   } finally { $('askBtn').disabled = false; }
 }
 $('askForm').addEventListener('submit', (e) => { e.preventDefault(); ask(); });
@@ -798,7 +798,7 @@ $('askState').textContent = 'Connecting…';
 (window.claude?.use ? window.claude.use('sample') : Promise.resolve(null)).then((s) => {
   sample = s;
   $('askState').textContent = s ? 'AI · Claude' : '';
-  if (!s) { $('askForm').hidden = true; $('chips').hidden = true; $('answer').innerHTML = '<div class="note">Open this page on claude.ai to ask the AI questions.</div>'; }
+  if (!s) { $('askForm').style.display = 'none'; $('chips').style.display = 'none'; $('answer').innerHTML = '<div class="note">AI Q&amp;A runs when this page is opened on claude.ai.</div>'; }
 });
 
 // open on the hash, or Equinox as the worked example
